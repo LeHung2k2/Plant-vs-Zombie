@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Enemy
   - Complete
+  - PotatoMine
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class Zombie : MonoBehaviour
     [SerializeField] public bool isFrozen = false;
     private float originspeed;
     private Animator anim;
+    public bool isDead=false;
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
@@ -22,7 +23,7 @@ public class Zombie : MonoBehaviour
 
     void Update()
     {
-        if (attacking)
+        if (attacking||isDead)
         {
             return;
         }
@@ -55,6 +56,7 @@ public class Zombie : MonoBehaviour
         hitpoint -= damage;
         if (hitpoint <= 0)
         {
+            isDead = true;
             anim.SetTrigger("Die");
             Die();
         }
@@ -62,10 +64,8 @@ public class Zombie : MonoBehaviour
     }
     void Die()
     {
-        
         Destroy(gameObject,1);
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Plant"))
@@ -79,6 +79,8 @@ public class Zombie : MonoBehaviour
             
 
         }
+        
+
 
     }
 

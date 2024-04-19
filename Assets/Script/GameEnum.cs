@@ -13,6 +13,7 @@ public enum PlantType
     PeaShooterCone = 7,
     TallNut = 8,
     ThreePea = 9,
+    PotatoMine = 10,
 }
 
 public enum ZombieType

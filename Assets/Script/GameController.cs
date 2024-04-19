@@ -149,6 +149,12 @@ public class GameController : MonoBehaviour
         return null;
 
     }
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Complete"))
+        {
+            
+        }
+    }
 }
 

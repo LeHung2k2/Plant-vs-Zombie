@@ -23,6 +23,7 @@ public class PlantCardManager : MonoBehaviour
         plantCosts.Add(PlantType.PeaShooterCone, 500);
         plantCosts.Add(PlantType.TallNut, 75);
         plantCosts.Add(PlantType.ThreePea, 325);
+        plantCosts.Add(PlantType.PotatoMine, 25);
     }
 
 
