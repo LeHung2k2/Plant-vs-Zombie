@@ -94,7 +94,7 @@ public class GameController : MonoBehaviour
         {
             for (int j = 0; j < 9; j++)
             {
-              SquareElement newSquare =   Instantiate(elementGrid, spawnLocation, Quaternion.identity);
+              SquareElement newSquare = Instantiate(elementGrid, spawnLocation, Quaternion.identity);
                 newSquare.SetId(i,j);
                 spawnLocation.x += spacingX;
             }
@@ -107,16 +107,13 @@ public class GameController : MonoBehaviour
 
     public IEnumerator SpawnZombie ()
     {
-        int lvl = 0;
-        totalZombiesToSpawn = levelSO.zombieQuantities[lvl].GetTotalZombie();
-
+        /*
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(5,13));
             int randomRow = Random.Range(0, 5);
             Instantiate(GetZombie(ZombieType.Zombie), spawnZombies[randomRow].position, Quaternion.identity);
             zombiesSpawned++;
-
             UpdateProgressBar();
 
             if (zombiesSpawned >= totalZombiesToSpawn)
@@ -128,8 +125,34 @@ public class GameController : MonoBehaviour
             
 
 
+        }*/
+        int lvl = 0;
+        LevelData currentLevelData = levelSO.zombieQuantities[lvl];
+        totalZombiesToSpawn = levelSO.zombieQuantities[lvl].GetTotalZombie();
+
+        foreach (var zombieQuantity in currentLevelData.zombies)
+        {
+            ZombieType zombieType = zombieQuantity.type;
+            int quantity = zombieQuantity.quantity;
+
+            for (int i = 0; i < quantity; i++)
+            {
+                int randomRow = Random.Range(0, 5);
+                yield return new WaitForSeconds(Random.Range(5, 13));
+                Instantiate(GetZombie(zombieType), spawnZombies[randomRow].position, Quaternion.identity);
+                zombiesSpawned++;
+                UpdateProgressBar();
+               
+            }
         }
-        
+
+        if (zombiesSpawned >= totalZombiesToSpawn)
+        {
+            yield return new WaitUntil(() => GameObject.FindWithTag("Enemy") == null);
+
+            GameWin();
+        }
+
     }
 
 
