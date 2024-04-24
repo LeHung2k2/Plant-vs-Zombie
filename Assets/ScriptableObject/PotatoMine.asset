@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a21db2aedba70f4b89789eba8f624da, type: 3}
   m_Name: PotatoMine
   m_EditorClassIdentifier: 
-  plantSprite: {fileID: 21300000, guid: 3e4e096a7c2923b439740b19e274e641, type: 3}
+  plantSprite: {fileID: 21300000, guid: daaf22d1a93295b4db517afaae18181e, type: 3}
   cost: 25

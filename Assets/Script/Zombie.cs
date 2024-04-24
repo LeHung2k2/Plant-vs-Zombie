@@ -76,10 +76,8 @@ public class Zombie : MonoBehaviour
             anim.SetBool("Atk",true);
             PlantUnit target = collision.gameObject.GetComponent<PlantUnit>();
             StartCoroutine(AttackPlant(target));
-            
-
         }
-        
+      
 
 
     }

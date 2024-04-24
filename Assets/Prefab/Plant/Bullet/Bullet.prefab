@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 243935498867337979}
-  - component: {fileID: 8289707535523492019}
   - component: {fileID: 2527357828213870126}
   m_Layer: 0
   m_Name: Circle
@@ -33,27 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2860538618165325418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8289707535523492019
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203481929870128655}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7f39f4480e49f1e47a0e620a83a582fd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &2527357828213870126
 SpriteRenderer:
   m_ObjectHideFlags: 0

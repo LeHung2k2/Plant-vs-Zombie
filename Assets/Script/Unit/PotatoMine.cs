@@ -24,7 +24,7 @@ public class PotatoMine : PlantUnit
             }
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
@@ -41,7 +41,5 @@ public class PotatoMine : PlantUnit
         atk = false;
         yield return new WaitForSeconds(3);
         anim.SetBool("atk", true);
-        atk = true;
-        yield return new WaitForSeconds(attackSpeed);
     }
 }

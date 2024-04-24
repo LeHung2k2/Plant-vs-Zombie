@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a21db2aedba70f4b89789eba8f624da, type: 3}
-  m_Name: TallNut
+  m_Name: ThreePea
   m_EditorClassIdentifier: 
-  plantSprite: {fileID: 2089932585, guid: 5a2cc4b1d131b714eacc7fd36c7dc191, type: 3}
-  cost: 75
+  plantSprite: {fileID: 21300000, guid: 6110629ca3fcff8489ebcd4161e63434, type: 3}
+  cost: 325

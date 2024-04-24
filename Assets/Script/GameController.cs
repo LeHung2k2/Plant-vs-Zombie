@@ -1,8 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class GameController : MonoBehaviour
 {
@@ -26,6 +29,32 @@ public class GameController : MonoBehaviour
     private int totalZombiesToSpawn;
     private int zombiesSpawned;
     public PlantCardManager plantCards;
+    public GameObject loseScreen;
+    public bool isLose=false;
+    public GameObject winScreen;
+    public bool isWin=false;
+    public void GameOver()
+    {
+        isLose = true;
+        loseScreen.gameObject.SetActive(true);
+    }
+    public void GameWin()
+    {
+        isWin = true;
+        winScreen.gameObject.SetActive(true);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            GameOver();
+        }
+    }
+ 
+    public void RestartLV()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     void Start()
     {
         AddSun(startSun);
@@ -33,7 +62,6 @@ public class GameController : MonoBehaviour
         StartCoroutine(SpawnZombie());
         GenMap();
         StartCoroutine(SpawnSun());
-        
     }
     public void AddSun(int amt)
     {
@@ -92,10 +120,19 @@ public class GameController : MonoBehaviour
             UpdateProgressBar();
 
             if (zombiesSpawned >= totalZombiesToSpawn)
-                yield break;
-        }
+            {
+                yield return new WaitUntil(() => GameObject.FindWithTag("Enemy") == null);
+                
+                    GameWin();
+            }
+            
 
+
+        }
+        
     }
+
+
     void UpdateProgressBar()
     {
         float progress = (float)zombiesSpawned / totalZombiesToSpawn;
@@ -148,13 +185,6 @@ public class GameController : MonoBehaviour
 
         return null;
 
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Complete"))
-        {
-            
-        }
     }
 }
 

@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fe2198f15fcc64ca974f23ffd3d1a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantType: 9
+  plantType: 7
   hitPoint: 25
   attack: 0
   attackSpeed: 1.5

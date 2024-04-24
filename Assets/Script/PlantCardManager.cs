@@ -19,9 +19,7 @@ public class PlantCardManager : MonoBehaviour
         plantCosts.Add(PlantType.WallNut, 50);
         plantCosts.Add(PlantType.PlantTrap, 125);
         plantCosts.Add(PlantType.PeaShooter2, 225);
-        plantCosts.Add(PlantType.PlantSilverTrap, 250);
         plantCosts.Add(PlantType.PeaShooterCone, 500);
-        plantCosts.Add(PlantType.TallNut, 75);
         plantCosts.Add(PlantType.ThreePea, 325);
         plantCosts.Add(PlantType.PotatoMine, 25);
     }
