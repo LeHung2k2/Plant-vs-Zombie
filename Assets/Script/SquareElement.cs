@@ -13,6 +13,7 @@ public class SquareElement : MonoBehaviour,IPointerDownHandler
     public int col = 0;
     private PlantUnit currentPlant;
     public List<CardElement> cards = new List<CardElement>();
+    [SerializeField] private AudioSource addPlantSound;
     public void SetId(int row,  int col)
     {
         this.row = row;
@@ -38,7 +39,7 @@ public class SquareElement : MonoBehaviour,IPointerDownHandler
             PlantType id = GameController.instance.idSpawn;
         
             PlantUnit newUnit = GameController.instance.GetUnit(id);
-
+            addPlantSound.Play();
             currentPlant = Instantiate(newUnit, this.transform.position, Quaternion.identity);
             GameController.instance.plantCards.FindPlant(plantType);
             GameController.instance.plantCards.Cost(plantType);

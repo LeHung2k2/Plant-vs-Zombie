@@ -8,6 +8,8 @@ public class PlantUnit : MonoBehaviour
     public float hitPoint;
     public int attack;
     public float attackSpeed;
+
+    [SerializeField] public AudioSource plantAtkSound;
     // Start is called before the first frame update
 
     void Start()
@@ -30,6 +32,7 @@ public class PlantUnit : MonoBehaviour
     public void TakeDaage(float damage)
     {
         hitPoint -= damage;
+        
         if (hitPoint <= 0) { Destroy(gameObject); }
     }
 

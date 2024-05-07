@@ -15,6 +15,8 @@ public class Zombie : MonoBehaviour
     private float originspeed;
     private Animator anim;
     public bool isDead=false;
+
+    [SerializeField] private AudioSource zomAtkSound;
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
@@ -71,7 +73,7 @@ public class Zombie : MonoBehaviour
         if (collision.gameObject.CompareTag("Plant"))
         {
             //Debug.Log(" ATACK PLANT");
-            
+           
             attacking = true;
             anim.SetBool("Atk",true);
             PlantUnit target = collision.gameObject.GetComponent<PlantUnit>();
@@ -86,14 +88,14 @@ public class Zombie : MonoBehaviour
     {
         while (target.hitPoint > 0)
         {
-            
+            zomAtkSound.Play();
             target.TakeDaage(attackDamage);
             yield return new WaitForSeconds(attackSpeed);
         }
         
         attacking = false;
         anim.SetBool("Atk", false);
-
+        zomAtkSound.Stop();
     }
    
 }

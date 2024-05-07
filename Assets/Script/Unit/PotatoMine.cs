@@ -33,6 +33,7 @@ public class PotatoMine : PlantUnit
             targets.Add(zombie);
             anim.SetTrigger("Atk");
             zombie.TakeDamage(attack);
+            plantAtkSound.Play();
             Destroy(gameObject, 1);
         }
     }

@@ -11,12 +11,11 @@ public class SunFlower : PlantUnit
     public override void Attack()
     {
         StartCoroutine(StartSpawnSun());
-        
-        
     }
     public IEnumerator StartSpawnSun()
     {
         yield return new WaitForSeconds(3);
+        plantAtkSound.Play();
         SpawnSun();
     }
     private void SpawnSun()

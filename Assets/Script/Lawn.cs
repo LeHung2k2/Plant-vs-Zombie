@@ -7,6 +7,8 @@ public class Lawn : MonoBehaviour
     public float speed = 5;
     public float damage = 500;
 
+    [SerializeField] private AudioSource lawnSound;
+
     public bool run = false;
 
     void Update()
@@ -19,12 +21,11 @@ public class Lawn : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-       
-
         if (collision.CompareTag("Enemy"))
         {
             if (!run)
             {
+                lawnSound.Play();  
                 run = true;
                 Destroy(gameObject,3.1f);
             }

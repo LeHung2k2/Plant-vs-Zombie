@@ -20,6 +20,7 @@ public class SunElement : MonoBehaviour,IPointerDownHandler
     {
         GameObject.FindObjectOfType<GameController>().AddSun(sunValue);
         Destroy(this.gameObject);
+        
     }
 
     private void Update()

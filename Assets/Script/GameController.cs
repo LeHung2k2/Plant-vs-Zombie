@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
 {
     public TMP_Text sunText;
     public int startSun;
-    public int sunAmount=0;
+    public int sunAmount = 0;
     public static GameController instance;
     public SunElement sunPrefab;
     public List<PlantUnit> plantUnit = new List<PlantUnit>();
@@ -30,31 +30,20 @@ public class GameController : MonoBehaviour
     private int zombiesSpawned;
     public PlantCardManager plantCards;
     public GameObject loseScreen;
-    public bool isLose=false;
     public GameObject winScreen;
-    public bool isWin=false;
-    public void GameOver()
+    private int currentLevelIndex;
+
+    [SerializeField] private AudioSource themeSound;
+    [SerializeField] private AudioSource loseSound;
+    [SerializeField] private AudioSource winSound;
+    [SerializeField] private AudioSource zomSound;
+  
+    private void Awake()
     {
-        isLose = true;
-        loseScreen.gameObject.SetActive(true);
+        currentLevelIndex = PlayerPrefs.GetInt(currentLevelIndex.ToString(), 0);
+        Debug.Log("Current Level  = " + currentLevelIndex);
     }
-    public void GameWin()
-    {
-        isWin = true;
-        winScreen.gameObject.SetActive(true);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            GameOver();
-        }
-    }
- 
-    public void RestartLV()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+
     void Start()
     {
         AddSun(startSun);
@@ -62,9 +51,45 @@ public class GameController : MonoBehaviour
         StartCoroutine(SpawnZombie());
         GenMap();
         StartCoroutine(SpawnSun());
+        themeSound.Play();
+        Invoke("PlayZomSound", 2f);
     }
+
+    void PlayZomSound()
+    {
+        zomSound.Play();
+    }
+    void StopSound()
+    {
+        themeSound.Stop();
+    }
+    
+    public void GameWin()
+    {
+        PlayerPrefs.SetInt(currentLevelIndex.ToString(),currentLevelIndex+1);
+       
+        SceneManager.LoadScene("Gameplay");
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+
+            loseScreen.gameObject.SetActive(true);
+            StopSound();
+            StopAllCoroutines();
+            loseSound.Play(); ;
+        }
+    }
+
+    public void RestartLV()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+   
     public void AddSun(int amt)
     {
+        
         sunAmount += amt;
         UpdateSunText();    
     }
@@ -107,26 +132,9 @@ public class GameController : MonoBehaviour
 
     public IEnumerator SpawnZombie ()
     {
-        /*
-        while (true)
-        {
-            yield return new WaitForSeconds(Random.Range(5,13));
-            int randomRow = Random.Range(0, 5);
-            Instantiate(GetZombie(ZombieType.Zombie), spawnZombies[randomRow].position, Quaternion.identity);
-            zombiesSpawned++;
-            UpdateProgressBar();
-
-            if (zombiesSpawned >= totalZombiesToSpawn)
-            {
-                yield return new WaitUntil(() => GameObject.FindWithTag("Enemy") == null);
-                
-                    GameWin();
-            }
-            
-
-
-        }*/
-        int lvl = 0;
+        
+        int lvl = currentLevelIndex;
+        Debug.Log("lvl " + lvl);
         LevelData currentLevelData = levelSO.zombieQuantities[lvl];
         totalZombiesToSpawn = levelSO.zombieQuantities[lvl].GetTotalZombie();
 
@@ -138,7 +146,9 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < quantity; i++)
             {
                 int randomRow = Random.Range(0, 5);
+                
                 yield return new WaitForSeconds(Random.Range(5, 13));
+                
                 Instantiate(GetZombie(zombieType), spawnZombies[randomRow].position, Quaternion.identity);
                 zombiesSpawned++;
                 UpdateProgressBar();
@@ -150,12 +160,14 @@ public class GameController : MonoBehaviour
         {
             yield return new WaitUntil(() => GameObject.FindWithTag("Enemy") == null);
 
-            GameWin();
+            winScreen.gameObject.SetActive(true);
+            StopSound();
+            StopAllCoroutines();
+            winSound.Play();;
         }
 
     }
-
-
+   
     void UpdateProgressBar()
     {
         float progress = (float)zombiesSpawned / totalZombiesToSpawn;
@@ -195,7 +207,7 @@ public class GameController : MonoBehaviour
     {
         idSpawn = id;
     }
-
+    
     public PlantUnit GetUnit(PlantType type)
     {
         for (int i = 0; i < plantUnit.Count; i++)

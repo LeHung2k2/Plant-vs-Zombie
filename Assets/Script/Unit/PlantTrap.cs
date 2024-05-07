@@ -21,6 +21,7 @@ public class PlantTrap : PlantUnit
         {
             Zombie zombie = collision.GetComponent<Zombie>();
             targets.Add(zombie);
+            plantAtkSound.Play();
         }
     }
 
@@ -28,6 +29,7 @@ public class PlantTrap : PlantUnit
     {
         Zombie zombie = collision.GetComponent<Zombie>();
         targets.Remove(zombie);
+        plantAtkSound.Stop();
     }
 
 }

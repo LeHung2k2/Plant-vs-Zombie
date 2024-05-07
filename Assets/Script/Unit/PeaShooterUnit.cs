@@ -7,12 +7,12 @@ public class PeaShooterUnit : PlantUnit
 {
     public List<Transform> shootPositions = new List<Transform>();
     public Zombie currentTarget;
-   
     public override void Attack()
     {
         if(currentTarget != null)
         {
             Shoot();
+            plantAtkSound.Play();
         }
         
     }

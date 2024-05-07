@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
 
     public float speed = 1;
     public float damage = 25;
-
     private void Start()
     {
         Destroy(gameObject,1.4f);
@@ -22,7 +21,6 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            
             Zombie zombie = collision.GetComponent<Zombie>();
             zombie.TakeDamage(damage);
             Destroy(gameObject);

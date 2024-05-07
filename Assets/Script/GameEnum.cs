@@ -17,6 +17,6 @@ public enum PlantType
 public enum ZombieType
 {
     Zombie = 0,
-    BucketZombie = 1,
-    ConeHeadZombie = 2,
+    ConeHeadZombie = 1,
+    BucketZombie = 2,
 }
