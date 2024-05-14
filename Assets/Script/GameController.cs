@@ -30,8 +30,10 @@ public class GameController : MonoBehaviour
     private int zombiesSpawned;
     public PlantCardManager plantCards;
     public GameObject loseScreen;
-    public GameObject winScreen;
+    public GameObject winScreen; 
+    public GameObject pauseLV;
     private int currentLevelIndex;
+    public Slider volumeSlider;
 
     [SerializeField] private AudioSource themeSound;
     [SerializeField] private AudioSource loseSound;
@@ -53,8 +55,23 @@ public class GameController : MonoBehaviour
         StartCoroutine(SpawnSun());
         themeSound.Play();
         Invoke("PlayZomSound", 2.5f);
-    }
 
+    }
+    public void Pause()
+    {
+        StopSound();
+        zomSound.Stop();
+        pauseLV.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+        volumeSlider.onValueChanged.AddListener(ChangeVolume);
+        volumeSlider.value = AudioListener.volume;
+    }
+    public void Resume()
+    {
+        pauseLV.gameObject.SetActive(false);
+        Time.timeScale = 1f;
+        themeSound.Play();
+    }
     void PlayZomSound()
     {
         zomSound.Play();
@@ -219,6 +236,10 @@ public class GameController : MonoBehaviour
 
         return null;
 
+    }
+    public void ChangeVolume(float volume)
+    {
+        AudioListener.volume = volume;
     }
 }
 

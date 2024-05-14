@@ -12,6 +12,7 @@ public class SnowPeashooter : PlantUnit
         if (currentTarget != null)
         {
             Shoot();
+            plantAtkSound.Play();
         }
 
     }
