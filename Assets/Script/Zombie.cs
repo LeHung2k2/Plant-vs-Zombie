@@ -34,9 +34,22 @@ public class Zombie : MonoBehaviour
         Vector3 translation = left * timeSinceLastFrame * time;
         transform.Translate(translation);
     }
+    public void ChangeColorAtk()
+    {
+        if (!isFrozen)
+        {
+            StartCoroutine(ChangeColor());
+        }
+    }
+    public IEnumerator ChangeColor()
+    {
+        GetComponentInChildren<SpriteRenderer>().color = Color.black;
+        yield return new WaitForSeconds(0.1f);
+        GetComponentInChildren<SpriteRenderer>().color = Color.white;
+    }
     public void SlowDown()
     {
-        if(!isFrozen)
+        if (!isFrozen)
         {
             StartCoroutine(DurationTime(4));
         }
@@ -73,13 +86,11 @@ public class Zombie : MonoBehaviour
         if (collision.gameObject.CompareTag("Plant"))
         {
             //Debug.Log(" ATACK PLANT");
-           
             attacking = true;
             anim.SetBool("Atk",true);
             PlantUnit target = collision.gameObject.GetComponent<PlantUnit>();
             StartCoroutine(AttackPlant(target));
         }
-      
 
 
     }
@@ -88,8 +99,8 @@ public class Zombie : MonoBehaviour
     {
         while (target.hitPoint > 0)
         {
-            zomAtkSound.Play();
             target.TakeDaage(attackDamage);
+            zomAtkSound.Play();
             yield return new WaitForSeconds(attackSpeed);
         }
         

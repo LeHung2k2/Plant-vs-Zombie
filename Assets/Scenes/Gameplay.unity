@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sunText: {fileID: 1569856531}
-  startSun: 2500
+  startSun: 5000
   sunAmount: 0
   sunPrefab: {fileID: 126381382453962152, guid: 1df043cf95cee8a4aa7711b112a614c4, type: 3}
   plantUnit:
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 1250134
+    rgba: 4279440214
   m_fontColor: {r: 0.335849, g: 0.07287285, b: 0.07287285, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -676,7 +676,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 719, y: -414.54056}
-  m_SizeDelta: {x: 301.9175, y: 140.2989}
+  m_SizeDelta: {x: 350, y: 140.2989}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &327167083
 MonoBehaviour:
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4856832
+    rgba: 4283046912
   m_fontColor: {r: 0, g: 0.10840364, b: 0.2905661, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2090,7 +2090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6518639910183081378, guid: 69d5dd41d2a276948b06d27cdd3d5c60, type: 3}
       propertyPath: coolDown
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8523500155404448172, guid: 69d5dd41d2a276948b06d27cdd3d5c60, type: 3}
       propertyPath: m_Sprite
@@ -2633,7 +2633,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2162687
+    rgba: 4280352767
   m_fontColor: {r: 1, g: 1, b: 0.1254902, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2815,7 +2815,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next
+  m_text: 'Confirm
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -2824,7 +2826,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2104075
+    rgba: 4280294155
   m_fontColor: {r: 0.04487718, g: 0.10716841, b: 0.12452829, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3418,7 +3420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6518639910183081378, guid: 69d5dd41d2a276948b06d27cdd3d5c60, type: 3}
       propertyPath: coolDown
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8523500155404448172, guid: 69d5dd41d2a276948b06d27cdd3d5c60, type: 3}
       propertyPath: m_Sprite
@@ -4400,7 +4402,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4172728
+    rgba: 4282362808
   m_fontColor: {r: 0.7207546, g: 0.66879106, b: 0.2488643, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3

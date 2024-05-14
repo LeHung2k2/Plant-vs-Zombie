@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
         GenMap();
         StartCoroutine(SpawnSun());
         themeSound.Play();
-        Invoke("PlayZomSound", 2f);
+        Invoke("PlayZomSound", 2.5f);
     }
 
     void PlayZomSound()
@@ -67,7 +67,6 @@ public class GameController : MonoBehaviour
     public void GameWin()
     {
         PlayerPrefs.SetInt(currentLevelIndex.ToString(),currentLevelIndex+1);
-       
         SceneManager.LoadScene("Gameplay");
     }
     private void OnTriggerEnter2D(Collider2D collision)

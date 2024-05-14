@@ -1,14 +1,15 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
+    Animator anim;
     public float speed = 1;
     public float damage = 25;
     private void Start()
     {
+        anim = GetComponent<Animator>();
         Destroy(gameObject,1.4f);
 
     }
@@ -23,7 +24,9 @@ public class Bullet : MonoBehaviour
         {
             Zombie zombie = collision.GetComponent<Zombie>();
             zombie.TakeDamage(damage);
-            Destroy(gameObject);
+            anim.SetTrigger("Atk");
+            zombie.ChangeColorAtk();
+            Destroy(gameObject,0.1f);
         }
     }
 }

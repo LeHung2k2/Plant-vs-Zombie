@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
 
 public class SunFlower : PlantUnit
 {
-
     public override void Attack()
     {
         StartCoroutine(StartSpawnSun());

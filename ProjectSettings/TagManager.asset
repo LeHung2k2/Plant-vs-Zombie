@@ -10,8 +10,8 @@ TagManager:
   - Bullet
   - Enemy
   - Complete
-  - PotatoMine
   - Lose
+  - Cherry
   layers:
   - Default
   - TransparentFX

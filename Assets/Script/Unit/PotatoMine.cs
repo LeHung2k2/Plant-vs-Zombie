@@ -5,8 +5,8 @@ using UnityEngine;
 public class PotatoMine : PlantUnit
 {
     Animator anim;
-    public bool atk;
     public List<Zombie> targets = new List<Zombie>();
+    private bool atk;
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
@@ -26,20 +26,19 @@ public class PotatoMine : PlantUnit
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            atk = true;
-            Zombie zombie= collision.GetComponent<Zombie>();
-            targets.Add(zombie);
-            anim.SetTrigger("Atk");
-            zombie.TakeDamage(attack);
-            plantAtkSound.Play();
-            Destroy(gameObject, 1);
+             atk = true;
+             Zombie zombie= collision.GetComponent<Zombie>();
+             targets.Add(zombie);
+             anim.SetTrigger("Atk");
+             zombie.TakeDamage(attack);
+             plantAtkSound.Play();
+             Destroy(gameObject, 1);
         }
     }
     public IEnumerator StartPotatoMine()
     {
-        atk = false;
         yield return new WaitForSeconds(3);
         anim.SetBool("atk", true);
     }

@@ -203,7 +203,6 @@ MonoBehaviour:
   attack: 500
   attackSpeed: 0.1
   plantAtkSound: {fileID: -4555501321512338945}
-  atk: 0
   targets: []
 --- !u!82 &-4555501321512338945
 AudioSource:
@@ -217,7 +216,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 652057077a0fa154a9aafab29036cfc7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.888
   m_Pitch: 1
   Loop: 0
   Mute: 0
