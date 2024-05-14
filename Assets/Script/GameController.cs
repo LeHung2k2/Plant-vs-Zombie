@@ -80,11 +80,15 @@ public class GameController : MonoBehaviour
     {
         themeSound.Stop();
     }
+    public void QuitLV()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     
     public void GameWin()
     {
         PlayerPrefs.SetInt(currentLevelIndex.ToString(),currentLevelIndex+1);
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("SelectLevel");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

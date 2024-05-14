@@ -20,9 +20,9 @@ MonoBehaviour:
   - level: 1
     zombies:
     - type: 2
-      quantity: 4
+      quantity: 1
     - type: 1
-      quantity: 2
+      quantity: 1
   - level: 2
     zombies:
     - type: 2
