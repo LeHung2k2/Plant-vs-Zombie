@@ -19,6 +19,6 @@ public class SunFlower : PlantUnit
     }
     private void SpawnSun()
     {
-        SunElement sun = Instantiate(GameController.instance.sunPrefab,transform.position,Quaternion.identity);
+        SunElement sun = Instantiate(GameController.instance.sunPrefab, transform.position, Quaternion.identity);
     }
 }

@@ -22,6 +22,15 @@ public class PlantCardManager : MonoBehaviour
         plantCosts.Add(PlantType.PeaShooterCone, 500);
         plantCosts.Add(PlantType.ThreePea, 325);
         plantCosts.Add(PlantType.PotatoMine, 25);
+
+        int highestLvl = PlayerPrefs.GetInt(GameData.KEY_LEVELHIGHEST) ;
+
+        for (int i = 0; i < cards.Count; i++) { 
+            if(highestLvl +1  > i)
+            {
+                cards[i].gameObject.SetActive(true);
+            } else cards[i].gameObject.SetActive(false);
+        }
     }
 
 

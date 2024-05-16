@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
     public float damage = 25;
     private void Start()
     {
-        anim = GetComponent<Animator>();
         Destroy(gameObject,1.4f);
 
     }
@@ -24,7 +23,6 @@ public class Bullet : MonoBehaviour
         {
             Zombie zombie = collision.GetComponent<Zombie>();
             zombie.TakeDamage(damage);
-            anim.SetTrigger("Atk");
             zombie.ChangeColorAtk();
             Destroy(gameObject,0.1f);
         }

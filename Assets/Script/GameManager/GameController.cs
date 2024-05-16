@@ -9,42 +9,48 @@ using Unity.VisualScripting;
 
 public class GameController : MonoBehaviour
 {
-    public TMP_Text sunText;
-    public int startSun;
-    public int sunAmount = 0;
     public static GameController instance;
-    public SunElement sunPrefab;
+
     public List<PlantUnit> plantUnit = new List<PlantUnit>();
     public List<Zombie> zombies = new List<Zombie>();
+    public List<Transform> spawnZombies = new List<Transform>();
+
+    public SunElement sunPrefab;
     public Bullet bulletPrefab;
     public SnowBullet snowBulletPrefab;
     public SquareElement elementGrid;
     public Transform startMapGenPositon;
-    public List<Transform> spawnZombies = new List<Transform>();
+    public PlantCardManager plantCards;
+
     public LevelSO levelSO;
+    public TMP_Text sunText;
+
+    public PlantType idSpawn;
+
+    public int startSun;
+    public int sunAmount = 0;
     public float spacingX = 1.5f;
     public float spacingY = 1.5f;
-    public PlantType idSpawn;
-    public Slider progressBar;
     private int totalZombiesToSpawn;
     private int zombiesSpawned;
-    public PlantCardManager plantCards;
+
     public GameObject loseScreen;
     public GameObject winScreen; 
-    public GameObject pauseLV;
-    private int currentLevelIndex;
+    public GameObject pauseGame;
+    
     public Slider volumeSlider;
+    public Slider progressBar;
 
     [SerializeField] private AudioSource themeSound;
     [SerializeField] private AudioSource loseSound;
     [SerializeField] private AudioSource winSound;
     [SerializeField] private AudioSource zomSound;
-  
-    private void Awake()
-    {
-        currentLevelIndex = PlayerPrefs.GetInt(currentLevelIndex.ToString(), 0);
-        Debug.Log("Current Level  = " + currentLevelIndex);
-    }
+
+    public Button pauseBtn;
+    public Button resumeBtn;
+    public Button quitBtn;
+    public Button winBtn;
+    public Button loseBtn;
 
     void Start()
     {
@@ -55,20 +61,22 @@ public class GameController : MonoBehaviour
         StartCoroutine(SpawnSun());
         themeSound.Play();
         Invoke("PlayZomSound", 2.5f);
-
+        pauseBtn.onClick.AddListener(Pause);
     }
     public void Pause()
     {
         StopSound();
         zomSound.Stop();
-        pauseLV.gameObject.SetActive(true);
+        pauseGame.gameObject.SetActive(true);
         Time.timeScale = 0f;
         volumeSlider.onValueChanged.AddListener(ChangeVolume);
         volumeSlider.value = AudioListener.volume;
+        resumeBtn.onClick.AddListener(Resume);
+        quitBtn.onClick.AddListener(QuitLV);
     }
     public void Resume()
     {
-        pauseLV.gameObject.SetActive(false);
+        pauseGame.gameObject.SetActive(false);
         Time.timeScale = 1f;
         themeSound.Play();
     }
@@ -83,37 +91,37 @@ public class GameController : MonoBehaviour
     public void QuitLV()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
     }
-    
     public void GameWin()
     {
-        PlayerPrefs.SetInt(currentLevelIndex.ToString(),currentLevelIndex+1);
-        SceneManager.LoadScene("SelectLevel");
+
+        int nextLevel = GameData.LEVEL_CHOOSING + 1;
+        int highestLvl = PlayerPrefs.GetInt(GameData.KEY_LEVELHIGHEST, 0);
+            if(nextLevel > highestLvl)
+        {
+            PlayerPrefs.SetInt(GameData.KEY_LEVELHIGHEST, nextLevel);
+        }
+        GameData.openLV = true;
+        SceneManager.LoadScene("MainMenu");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-
-            loseScreen.gameObject.SetActive(true);
-            StopSound();
-            StopAllCoroutines();
-            loseSound.Play(); ;
+            ShowEndScreen(loseScreen, loseSound);
+            loseBtn.onClick.AddListener(RestartLV);
         }
     }
-
     public void RestartLV()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-   
     public void AddSun(int amt)
     {
-        
         sunAmount += amt;
         UpdateSunText();    
     }
-
     public void DeductSun(int amt)
     {
         if(sunAmount>=amt)
@@ -126,12 +134,10 @@ public class GameController : MonoBehaviour
             return;
         }
     }
-
     void UpdateSunText()
     {
         sunText.text = "" + sunAmount;
     }
-
     public void GenMap ()
     {
         Vector2 spawnLocation = startMapGenPositon.position;
@@ -143,21 +149,16 @@ public class GameController : MonoBehaviour
                 newSquare.SetId(i,j);
                 spawnLocation.x += spacingX;
             }
-
             spawnLocation.y -= spacingY;
             spawnLocation.x = startMapGenPositon.position.x;
-
         }
     }
-
     public IEnumerator SpawnZombie ()
     {
-        
-        int lvl = currentLevelIndex;
+        int lvl = GameData.LEVEL_CHOOSING;
         Debug.Log("lvl " + lvl);
         LevelData currentLevelData = levelSO.zombieQuantities[lvl];
         totalZombiesToSpawn = levelSO.zombieQuantities[lvl].GetTotalZombie();
-
         foreach (var zombieQuantity in currentLevelData.zombies)
         {
             ZombieType zombieType = zombieQuantity.type;
@@ -166,9 +167,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < quantity; i++)
             {
                 int randomRow = Random.Range(0, 5);
-                
                 yield return new WaitForSeconds(Random.Range(5, 13));
-                
                 Instantiate(GetZombie(zombieType), spawnZombies[randomRow].position, Quaternion.identity);
                 zombiesSpawned++;
                 UpdateProgressBar();
@@ -179,11 +178,8 @@ public class GameController : MonoBehaviour
         if (zombiesSpawned >= totalZombiesToSpawn)
         {
             yield return new WaitUntil(() => GameObject.FindWithTag("Enemy") == null);
-
-            winScreen.gameObject.SetActive(true);
-            StopSound();
-            StopAllCoroutines();
-            winSound.Play();;
+            ShowEndScreen(winScreen, winSound);
+            winBtn.onClick.AddListener(GameWin);
         }
 
     }
@@ -200,15 +196,11 @@ public class GameController : MonoBehaviour
         {
             int randomTime = Random.Range(3, 10);
             yield return new WaitForSeconds(randomTime);
-          
             float randomX = Random.Range(-4.7f, 6.3f);
-        
             SunElement newSun =  Instantiate(sunPrefab, new Vector2(randomX,6), Quaternion.identity);
             newSun.isFalling = true;
-
         }
     }
-
     public Zombie GetZombie(ZombieType id)
     {
         for (int i = 0; i < zombies.Count; i++)
@@ -218,11 +210,8 @@ public class GameController : MonoBehaviour
                 return zombies[i];
             }
         }
-
         return null;
-
     }
-
     public void ChangeIdSpawn(PlantType id)
     {
         idSpawn = id;
@@ -237,13 +226,17 @@ public class GameController : MonoBehaviour
                 return plantUnit[i];
             }
         }
-
         return null;
-
     }
     public void ChangeVolume(float volume)
     {
         AudioListener.volume = volume;
     }
+    private void ShowEndScreen(GameObject endScreen, AudioSource endSound)
+    {
+        StopAllCoroutines();
+        StopSound();
+        endScreen.SetActive(true);
+        endSound.Play();
+    }
 }
-
