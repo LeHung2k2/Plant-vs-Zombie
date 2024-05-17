@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
     public float spacingY = 1.5f;
     private int totalZombiesToSpawn;
     private int zombiesSpawned;
+    private bool speedUp = false;
 
     public GameObject loseScreen;
     public GameObject winScreen; 
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour
     public Button quitBtn;
     public Button winBtn;
     public Button loseBtn;
+    public Button speedBtn;
 
     void Start()
     {
@@ -62,6 +64,20 @@ public class GameController : MonoBehaviour
         themeSound.Play();
         Invoke("PlayZomSound", 2.5f);
         pauseBtn.onClick.AddListener(Pause);
+        speedBtn.onClick.AddListener(SpeedGame);
+    }
+    public void SpeedGame()
+    {
+        if(speedUp)
+        {
+            Time.timeScale = 1f;
+            speedUp = false;
+        }
+        else
+        {
+            Time.timeScale = 3f;
+            speedUp = true;
+        }
     }
     public void Pause()
     {
