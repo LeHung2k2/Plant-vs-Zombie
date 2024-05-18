@@ -6,7 +6,7 @@ public class PotatoMine : PlantUnit
 {
     Animator anim;
     public List<Zombie> targets = new List<Zombie>();
-    private bool atk;
+    public bool atk=false;
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();

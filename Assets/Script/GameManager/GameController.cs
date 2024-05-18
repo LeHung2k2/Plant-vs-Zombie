@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
     public float spacingY = 1.5f;
     private int totalZombiesToSpawn;
     private int zombiesSpawned;
-    private bool speedUp = false;
+    private bool speedUp;
 
     public GameObject loseScreen;
     public GameObject winScreen; 
@@ -68,15 +68,15 @@ public class GameController : MonoBehaviour
     }
     public void SpeedGame()
     {
-        if(speedUp)
+        if(speedUp==false)
         {
             Time.timeScale = 1f;
-            speedUp = false;
+            speedUp = true;
         }
         else
         {
             Time.timeScale = 3f;
-            speedUp = true;
+            speedUp = false;
         }
     }
     public void Pause()
@@ -172,7 +172,6 @@ public class GameController : MonoBehaviour
     public IEnumerator SpawnZombie ()
     {
         int lvl = GameData.LEVEL_CHOOSING;
-        Debug.Log("lvl " + lvl);
         LevelData currentLevelData = levelSO.zombieQuantities[lvl];
         totalZombiesToSpawn = levelSO.zombieQuantities[lvl].GetTotalZombie();
         foreach (var zombieQuantity in currentLevelData.zombies)

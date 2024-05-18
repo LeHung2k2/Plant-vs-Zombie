@@ -4,5 +4,4 @@ using UnityEngine;
 public class PlantCardScriptableObj : ScriptableObject
 {
    public Sprite plantSprite;
-    public float cost;
 }
