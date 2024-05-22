@@ -82,9 +82,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantType: 2
-  hitPoint: 60
+  hitPoint: 50
   attack: 0
   attackSpeed: 0
+  plantAtkSound: {fileID: 0}
 --- !u!1 &927914283341025367
 GameObject:
   m_ObjectHideFlags: 0

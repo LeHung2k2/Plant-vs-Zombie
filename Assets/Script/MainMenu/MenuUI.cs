@@ -15,19 +15,55 @@ public class MenuUI : MonoBehaviour
     public Button resetBtn;
     public Button confirmBtn;
     public Button refuseBtn;
+    public Button exitBtn;
+
+    private AudioSource audioSource;
+    public AudioClip buttonClickSound;
     void Start()
     {
+
+        audioSource = gameObject.AddComponent<AudioSource>();
         levelPanel.gameObject.SetActive(false);
         instance = this;
-        playBtn.onClick.AddListener(OpenLevel);
-        resetBtn.onClick.AddListener(ResetScreen);
-        if (GameData.openLV==true)
+        playBtn.onClick.AddListener(() =>
+        {
+            PlayButtonClickSound();
+            OpenLevel();
+        });
+        resetBtn.onClick.AddListener(() =>
+        {
+            PlayButtonClickSound();
+            ResetScreen();
+        });
+        exitBtn.onClick.AddListener(QuitGame);
+
+        confirmBtn.onClick.AddListener(() =>
+        {
+            PlayButtonClickSound();
+            ResetGame();
+        });
+        refuseBtn.onClick.AddListener(() =>
+        {
+            PlayButtonClickSound();
+            ResumeGame();
+        });
+        if (GameData.openLV == true)
         {
             OpenLevel();
             GameData.openLV = false;
         }
     }
-
+    private void PlayButtonClickSound()
+    {
+        if (audioSource != null && buttonClickSound != null)
+        {
+            audioSource.PlayOneShot(buttonClickSound);
+        }
+    }
+    private void QuitGame()
+    {
+        Application.Quit();
+    }
     private void OpenLevel()
     {
         levelPanel.gameObject.SetActive(true);

@@ -847,7 +847,7 @@ MonoBehaviour:
   levelSO: {fileID: 11400000, guid: b21081eb9c038b341b7e1e7e8866f72f, type: 2}
   sunText: {fileID: 1569856531}
   idSpawn: -1
-  startSun: 5000
+  startSun: 25
   sunAmount: 0
   spacingX: 1.31
   spacingY: 1.6

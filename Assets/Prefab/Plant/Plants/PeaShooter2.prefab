@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantType: 5
-  hitPoint: 0
+  hitPoint: 20
   attack: 0
   attackSpeed: 1.5
   plantAtkSound: {fileID: 693085746003216838}

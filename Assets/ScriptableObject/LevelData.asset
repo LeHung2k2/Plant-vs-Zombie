@@ -16,25 +16,25 @@ MonoBehaviour:
   - level: 0
     zombies:
     - type: 0
-      quantity: 6
+      quantity: 2
   - level: 1
     zombies:
     - type: 0
-      quantity: 14
+      quantity: 8
   - level: 2
     zombies:
     - type: 1
-      quantity: 9
+      quantity: 8
   - level: 3
     zombies:
     - type: 0
       quantity: 8
     - type: 1
-      quantity: 10
+      quantity: 6
   - level: 4
     zombies:
     - type: 2
-      quantity: 7
+      quantity: 6
   - level: 5
     zombies:
     - type: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   - level: 7
     zombies:
     - type: 2
-      quantity: 15
+      quantity: 10
   - level: 8
     zombies:
     - type: 0

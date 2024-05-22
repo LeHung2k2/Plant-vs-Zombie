@@ -8,6 +8,7 @@ public class CardElement : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     public PlantType plantId;
     public Image plantSprite;
     public TMP_Text costTxt;
+    public TMP_Text coolDownTxt;
     public int coolDown;
     public bool isCoolDownTime;
     public Image coolDownImg;
@@ -34,32 +35,24 @@ public class CardElement : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
    
     public IEnumerator CoolDownDelay()
     {
-        /*isCoolDownTime = true;
-
-             yield return new WaitForSeconds(coolDown);
-
-
-         isCoolDownTime = false;
-     }
- }*/
         isCoolDownTime = true;
         float elapsedTime = 0f;
-        
+        coolDownTxt.gameObject.SetActive(true);
 
         while (elapsedTime < coolDown)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / coolDown); 
-
-            
             coolDownImg.color = Color.Lerp(startColor, endColor, t);
+            float remainingTime = coolDown - elapsedTime;
+            coolDownTxt.text = Mathf.CeilToInt(remainingTime).ToString();
 
             yield return null;
         }
 
         
         coolDownImg.color = endColor;
-
+        coolDownTxt.gameObject.SetActive(false);
         isCoolDownTime = false;
     }
 
