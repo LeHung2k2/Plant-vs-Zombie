@@ -35,6 +35,11 @@ public class GameController : MonoBehaviour
     private int zombiesSpawned;
     private bool speedUp;
 
+    public Image winIconImage;
+    public TMP_Text decriptionTxt;
+    public TMP_Text costTxt;
+    public TMP_Text nameTxt;
+
     public GameObject loseScreen;
     public GameObject winScreen; 
     public GameObject pauseGame;
@@ -111,10 +116,9 @@ public class GameController : MonoBehaviour
     }
     public void GameWin()
     {
-
         int nextLevel = GameData.LEVEL_CHOOSING + 1;
         int highestLvl = PlayerPrefs.GetInt(GameData.KEY_LEVELHIGHEST, 0);
-            if(nextLevel > highestLvl)
+        if (nextLevel > highestLvl)
         {
             PlayerPrefs.SetInt(GameData.KEY_LEVELHIGHEST, nextLevel);
         }
@@ -125,7 +129,7 @@ public class GameController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            ShowEndScreen(loseScreen, loseSound);
+            ShowEndScreen(loseScreen, loseSound, false);
             loseBtn.onClick.AddListener(RestartLV);
         }
     }
@@ -193,7 +197,7 @@ public class GameController : MonoBehaviour
         if (zombiesSpawned >= totalZombiesToSpawn)
         {
             yield return new WaitUntil(() => GameObject.FindWithTag("Enemy") == null);
-            ShowEndScreen(winScreen, winSound);
+            ShowEndScreen(winScreen, winSound, true);
             winBtn.onClick.AddListener(GameWin);
         }
 
@@ -247,11 +251,19 @@ public class GameController : MonoBehaviour
     {
         AudioListener.volume = volume;
     }
-    private void ShowEndScreen(GameObject endScreen, AudioSource endSound)
+    private void ShowEndScreen(GameObject endScreen, AudioSource endSound, bool isWin)
     {
         StopAllCoroutines();
         StopSound();
         endScreen.SetActive(true);
         endSound.Play();
+        if (isWin)
+        {
+            LevelData currentLevelData = levelSO.zombieQuantities[GameData.LEVEL_CHOOSING];
+            winIconImage.sprite = currentLevelData.winIcon;
+            nameTxt.text = currentLevelData.name;
+            decriptionTxt.text = currentLevelData.decription;
+            costTxt.text = currentLevelData.cost;
+        }
     }
 }

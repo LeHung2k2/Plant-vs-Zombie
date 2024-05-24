@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombieId: 2
-  hitpoint: 200
+  hitpoint: 350
   attackSpeed: 1
   attackDamage: 3
   attacking: 0
