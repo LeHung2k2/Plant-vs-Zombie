@@ -17,7 +17,6 @@ public class PlantUnit : MonoBehaviour
         StartCoroutine(DoImpact());
     }
 
-
     public IEnumerator DoImpact()
     {
         while (true)
@@ -27,7 +26,6 @@ public class PlantUnit : MonoBehaviour
           
         }
     }
-
 
     public void TakeDaage(float damage)
     {

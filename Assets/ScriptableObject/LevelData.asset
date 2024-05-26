@@ -16,7 +16,7 @@ MonoBehaviour:
   - level: 0
     zombies:
     - type: 0
-      quantity: 2
+      quantity: 3
     winIcon: {fileID: 1743248155, guid: ba833e13d663a224cbde94a676e4e2bb, type: 3}
     name: Sun Flower
     decription: Sun Flower are assential for you to produce extra sun
@@ -24,32 +24,32 @@ MonoBehaviour:
   - level: 1
     zombies:
     - type: 0
-      quantity: 8
+      quantity: 5
     winIcon: {fileID: 21300000, guid: daaf22d1a93295b4db517afaae18181e, type: 3}
     name: Potato Mine
     decription: Potato Mine pack a powerful punch. They will explode on contact enemies
     cost: 'Cost: $25'
   - level: 2
     zombies:
-    - type: 1
-      quantity: 8
+    - type: 0
+      quantity: 9
     winIcon: {fileID: -573395546, guid: 631caaca40d194c42a802aa7e5a7a18c, type: 3}
     name: Snow Peashooter
     decription: Snow Peashooter shoot frozen peas that damage and slow the enemy
     cost: 'Cost: $175'
   - level: 3
     zombies:
-    - type: 0
-      quantity: 8
     - type: 1
-      quantity: 6
+      quantity: 8
     winIcon: {fileID: -494866116, guid: 0eb5ce8fc8a10204284eaf40db93a314, type: 3}
     name: Wall Nut
     decription: Wall Nut have hard shells which you can use to protect your plants
     cost: 'Cost: $50'
   - level: 4
     zombies:
-    - type: 2
+    - type: 0
+      quantity: 6
+    - type: 1
       quantity: 6
     winIcon: {fileID: 1227261541, guid: 34cb1d17b0d2fab4da86fb7c8bcf71a7, type: 3}
     name: SpikeWeed
@@ -57,17 +57,15 @@ MonoBehaviour:
     cost: 'Cost: $125'
   - level: 5
     zombies:
-    - type: 0
-      quantity: 6
     - type: 2
-      quantity: 4
+      quantity: 6
     winIcon: {fileID: -1463440083, guid: 76e32be87f96d5a4888a1d12536f8908, type: 3}
     name: Repeater
     decription: Repeaters fire two peas at a time
     cost: 'Cost: $225'
   - level: 6
     zombies:
-    - type: 1
+    - type: 0
       quantity: 6
     - type: 2
       quantity: 8
@@ -77,6 +75,8 @@ MonoBehaviour:
     cost: 'Cost: 500'
   - level: 7
     zombies:
+    - type: 1
+      quantity: 6
     - type: 2
       quantity: 10
     winIcon: {fileID: 21300000, guid: 6110629ca3fcff8489ebcd4161e63434, type: 3}

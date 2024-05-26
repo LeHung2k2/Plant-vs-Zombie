@@ -14,16 +14,20 @@ public class Zombie : MonoBehaviour
     private float originspeed;
     private Animator anim;
     public bool isDead=false;
+    public GameController gameController;
 
     [SerializeField] private AudioSource zomAtkSound;
     private void Start()
     {
+        gameController = GameController.instance;
         anim = GetComponentInChildren<Animator>();
         originspeed = time;
     }
 
     void Update()
     {
+        if (gameController.isLose)
+            return;
         if (attacking||isDead)
         {
             return;

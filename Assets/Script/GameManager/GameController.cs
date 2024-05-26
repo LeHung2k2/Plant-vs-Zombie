@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour
     public SnowBullet snowBulletPrefab;
     public SquareElement elementGrid;
     public Transform startMapGenPositon;
+    public Transform startMapGenPositon0;
+    public Transform startMapGenPositon1;
     public PlantCardManager plantCards;
 
     public LevelSO levelSO;
@@ -34,7 +36,9 @@ public class GameController : MonoBehaviour
     private int totalZombiesToSpawn;
     private int zombiesSpawned;
     private bool speedUp;
+    public bool isLose = false;
 
+    public Transform backgroundImg;
     public Image winIconImage;
     public TMP_Text decriptionTxt;
     public TMP_Text costTxt;
@@ -58,11 +62,12 @@ public class GameController : MonoBehaviour
     public Button winBtn;
     public Button loseBtn;
     public Button speedBtn;
-
+    public ChangeBackground backgroundManager;
     void Start()
     {
         AddSun(startSun);
         instance = this;
+        backgroundManager.ChangeBackgroundImg(GameData.LEVEL_CHOOSING);
         StartCoroutine(SpawnZombie());
         GenMap();
         StartCoroutine(SpawnSun());
@@ -75,12 +80,12 @@ public class GameController : MonoBehaviour
     {
         if(speedUp==false)
         {
-            Time.timeScale = 1f;
+            Time.timeScale = 3f;
             speedUp = true;
         }
         else
         {
-            Time.timeScale = 3f;
+            Time.timeScale = 1f;
             speedUp = false;
         }
     }
@@ -160,18 +165,50 @@ public class GameController : MonoBehaviour
     }
     public void GenMap ()
     {
-        Vector2 spawnLocation = startMapGenPositon.position;
-        for (int i = 0; i < 5; i++)
+        if (GameData.LEVEL_CHOOSING == 0)
         {
-            for (int j = 0; j < 9; j++)
-            {
-              SquareElement newSquare = Instantiate(elementGrid, spawnLocation, Quaternion.identity);
-                newSquare.SetId(i,j);
-                spawnLocation.x += spacingX;
-            }
-            spawnLocation.y -= spacingY;
-            spawnLocation.x = startMapGenPositon.position.x;
+            Vector2 spawnLocation0 = startMapGenPositon0.position;
+                for (int j = 0; j < 9; j++)
+                {
+                    SquareElement newSquare = Instantiate(elementGrid, spawnLocation0, Quaternion.identity);
+                    newSquare.SetId(0, j);
+                    spawnLocation0.x += spacingX;
+                }
+                spawnLocation0.y -= spacingY;
+                spawnLocation0.x = startMapGenPositon.position.x;
+            
         }
+        else if (GameData.LEVEL_CHOOSING == 1)
+        {
+            Vector2 spawnLocation1 = startMapGenPositon1.position;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    SquareElement newSquare = Instantiate(elementGrid, spawnLocation1, Quaternion.identity);
+                    newSquare.SetId(i, j);
+                    spawnLocation1.x += spacingX;
+                }
+                spawnLocation1.y -= spacingY;
+                spawnLocation1.x = startMapGenPositon.position.x;
+            }
+        }
+        else
+        {
+            Vector2 spawnLocation = startMapGenPositon.position;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    SquareElement newSquare = Instantiate(elementGrid, spawnLocation, Quaternion.identity);
+                    newSquare.SetId(i, j);
+                    spawnLocation.x += spacingX;
+                }
+                spawnLocation.y -= spacingY;
+                spawnLocation.x = startMapGenPositon.position.x;
+            }
+        }
+        
     }
     public IEnumerator SpawnZombie ()
     {
@@ -185,9 +222,23 @@ public class GameController : MonoBehaviour
 
             for (int i = 0; i < quantity; i++)
             {
-                int randomRow = Random.Range(0, 5);
-                yield return new WaitForSeconds(Random.Range(5, 13));
-                Instantiate(GetZombie(zombieType), spawnZombies[randomRow].position, Quaternion.identity);
+                if (lvl == 0)
+                {
+                    yield return new WaitForSeconds(Random.Range(5, 13));
+                    Instantiate(GetZombie(zombieType), spawnZombies[3].position, Quaternion.identity);
+                }
+                else if (lvl == 1)
+                {
+                    int randomRow = Random.Range(2, 5);
+                    yield return new WaitForSeconds(Random.Range(5, 13));
+                    Instantiate(GetZombie(zombieType), spawnZombies[randomRow].position, Quaternion.identity);
+                }
+                else
+                {
+                    int randomRow = Random.Range(0, 5);
+                    yield return new WaitForSeconds(Random.Range(5, 13));
+                    Instantiate(GetZombie(zombieType), spawnZombies[randomRow].position, Quaternion.identity);
+                }
                 zombiesSpawned++;
                 UpdateProgressBar();
                
@@ -256,6 +307,7 @@ public class GameController : MonoBehaviour
         StopAllCoroutines();
         StopSound();
         endScreen.SetActive(true);
+        isLose = true;
         endSound.Play();
         if (isWin)
         {
